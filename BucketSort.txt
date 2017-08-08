@@ -1,0 +1,49 @@
+int getbit(int* arr,int size)  //获得最大位数
+{
+	int bits = 1;
+	int rang = 10;
+	for (int i = 0; i < size; ++i)
+	{
+		while (arr[i] >= rang)
+		{		
+			++bits;
+			rang *= 10;
+		}
+	}
+	return bits;
+}
+
+void BucketSort(int* arr, int size)
+{
+	int bits = getbit(arr, size);
+	int radix = 1;
+	int count[10];
+	for (int bit = 1; bit <= bits;bit++)  //循环最大位数次
+	{
+		memset(count, 0, sizeof(int)* 10);
+		for (int i = 0; i < size; ++i)//统计数字位数的数量
+		{
+			int index = (arr[i] / radix) % 10;
+			count[index]++;
+		}
+
+		for (int j = 1; j < 10; j++)  //固定数值排序的位置
+		{
+			count[j] = count[j] + count[j - 1];
+		}
+		int *str = new int[size];
+		memset(str, 0, sizeof(int)*size);
+		for (int i = size-1; i >=0; i--)//按照固定的位置将数据写入辅助数组
+		{
+			int index = (arr[i] / radix) % 10;
+			str[count[index]-1] = arr[i];
+			count[index]--;
+		}
+		radix = radix * 10;
+		for (int i = 0; i < size; i++) //将辅助数组中的数拷贝回原数组
+		{
+			arr[i] = str[i];
+		}
+		delete[] str;
+	}
+}

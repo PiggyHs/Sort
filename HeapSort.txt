@@ -1,0 +1,48 @@
+void AjustDown(int* arr, int pos, int size)  //向下调整算法堆排序
+{
+	int parent = pos;
+	int child = 2 * pos + 1;
+	while (child <= size)
+	{
+		if (child<size && arr[child + 1] > arr[child])
+		{
+			child++;
+		}
+		if (arr[parent] < arr[child])
+		{
+			swap(arr[parent], arr[child]);
+			parent = child;
+			child = child * 2 + 1;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+}
+
+void AjustDown(int* arr, int size)
+{
+	int parent = (size - 2) / 2;
+	while (parent >= 0)
+	{
+		AjustDown(arr, parent, size-1);
+		parent--;
+	}
+}
+void HeapSort(int* arr, int size)//堆排序
+{
+		AjustDown(arr,size);
+	
+	
+	while (size > 1)
+	{
+		int temp = arr[0];
+		arr[0]=arr[size - 1];
+		arr[size - 1] = temp;
+		size--;
+		AjustDown(arr,size);
+	}
+
+}

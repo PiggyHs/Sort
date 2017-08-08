@@ -1,0 +1,41 @@
+void MergeSort(int arr[], int left, int midIndex, int right)
+{
+	int* str = new int[right - left + 1];
+	int i = left; int j = midIndex + 1; int k = 0;
+	while (i <= midIndex && j <= right)
+	{
+		if (arr[i] > arr[j])
+		{
+			str[k++] = arr[j++];
+		}
+		else
+		{
+			str[k++] = arr[i++];
+		}
+	}
+	while (i <= midIndex)
+	{
+		str[k++] = arr[i++];
+	}
+	while (j <= right)
+	{
+		str[k++] = arr[j++];
+	}
+	for (int p = 0; p <= (right-left); p++)
+	{
+		arr[left+p] = str[p];
+	}
+}
+void MergeSort(int sourceArr[], int startIndex, int endIndex)
+{
+	assert(sourceArr);
+	int mid;
+	if (startIndex < endIndex)
+	{
+		mid = (startIndex + endIndex) / 2;
+		MergeSort(sourceArr, startIndex, mid);
+		MergeSort(sourceArr, mid + 1, endIndex);
+		MergeSort(sourceArr, startIndex, mid, endIndex);
+	}
+	return;
+}

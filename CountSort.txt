@@ -1,0 +1,30 @@
+void CountSort(int *arr, int size)  
+{
+	int Max = arr[0];
+	int Min = arr[0];
+	for (int i = 0; i < size; ++i)
+	{
+		if (Max < arr[i])
+			Max = arr[i];
+		if (Min > arr[i])
+			Min = arr[i];
+	}
+	int newsize = Max - Min + 1;
+	int* a = new int[newsize];
+	memset(a, 0, sizeof(int)*newsize);
+	for (int i = 0; i < size; ++i)
+	{
+		a[arr[i] - Min]++;
+	}
+
+	int j = 0;
+	for (int i = 0; i < newsize; ++i) 
+	{
+		while (a[i])
+		{
+			arr[j++] = i+Min;
+			a[i]--;
+		}
+	}
+	delete[] a;
+}

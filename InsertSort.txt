@@ -1,0 +1,16 @@
+void InsertSort(int* arr,int size)
+{
+	if (arr == NULL || size == 0)
+		return;
+	for (int i = 1; i < size; ++i)  //保证第一个位置是正确的
+	{
+		int j = i;
+		int temp = arr[i];
+		while (j>0 && temp < arr[j - 1])
+		{
+			arr[j] = arr[j - 1];
+			j--;
+		}
+		arr[j] = temp;  //插入
+	}
+}
